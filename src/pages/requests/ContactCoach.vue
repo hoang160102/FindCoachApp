@@ -19,6 +19,7 @@
 export default {
   data() {
     return {
+      isLoading: false,
       email: '',
       message: '',
       formIsValid: true
