@@ -8,8 +8,9 @@ export default {
       description: payload.description,
       hourlyRate: payload.hourlyRate,
     };
+    const token = context.rootGetters.token
     const response = await fetch(
-      `https://coach-8d884-default-rtdb.firebaseio.com/coaches/${userId}.json`,
+      `https://coach-8d884-default-rtdb.firebaseio.com/coaches/${userId}.json?auth=` + token,
       {
         method: 'PUT',
         body: JSON.stringify(addCoach),
@@ -24,9 +25,12 @@ export default {
       id: userId,
     });
   },
-  async loadCoaches(context) {
+  async loadCoaches(context, payload) {
+    if (!payload.refresh && !context.getters.shouldUpdate) {
+      return
+    }
     const response = await fetch(
-      `https://coach-8d884-default-rtdb.firebaseio.com/coaches/.json`
+      `https://coach-8d884-default-rtdb.firebaseio.com/coaches.json`
     );
     const responseData = await response.json();
     if (!response.ok) {
@@ -46,5 +50,6 @@ export default {
       coaches.push(coach)
     }
     context.commit('setCoaches', coaches)
+    context.commit('setFetchTime')
   },
 };

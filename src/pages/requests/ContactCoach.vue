@@ -53,7 +53,7 @@ form {
 }
 
 .form-control {
-  margin: 0.5rem 0;
+  margin: 1rem 0;
 }
 
 label {
@@ -66,9 +66,11 @@ input,
 textarea {
   display: block;
   width: 100%;
-  font: inherit;
   border: 1px solid #ccc;
-  padding: 0.15rem;
+  font: inherit;
+  padding: 12px;
+  font-size: 16px;
+  border-radius: 10px;
 }
 
 input:focus,
